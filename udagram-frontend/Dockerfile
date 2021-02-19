@@ -1,0 +1,1 @@
+FROM gbolarhan/frontend:v1.0.0
