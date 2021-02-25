@@ -1,0 +1,36 @@
+version: '3'
+services: 
+    reverse:
+        build:
+          dockerfile: Dockerfile
+          context: ./reverse
+        container_name: reverse
+        ports:
+            - 8080:8080
+        restart: always
+        depends_on:
+          - user
+          - feed     
+    user:
+        build:
+            dockerfile: Dockerfile
+            context: ./udagram-user
+        container_name: user-api
+        env_file:
+          - udagram-user/.env
+    feed:
+        build:
+            dockerfile: Dockerfile
+            context: ./udagram-feed
+        container_name: feed-api
+        env_file: 
+          - udagram-feed/.env
+    front:
+        build:
+            dockerfile: Dockerfile
+            context: ./udagram-frontend
+        container_name: frontend
+        env_file: 
+          - udagram-frontend/.env
+        ports:
+          - 8100:80

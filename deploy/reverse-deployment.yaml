@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    service: reverse
+  name: reverse
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: reverse
+  template:
+    metadata:
+      labels:
+        service: reverse
+    spec:
+      containers:
+      - image: gbolarhan/reverse:v1.0.0
+        name: reverse        
+        resources:
+          requests:
+            memory: "32Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "250m"       
+        ports:
+        - containerPort: 8080
+          hostPort: 8080
+      restartPolicy: Always
+
+
